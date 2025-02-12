@@ -10,13 +10,10 @@ CONTRACT quiz : public contract {
 public:
     using contract::contract;
 
-    // Конструктор контракта
     quiz(name receiver, name code, datastream<const char*> ds)
         : contract(receiver, code, ds) {}
 
-    // Добавление вопроса в тест
     ACTION addquestion(name admin, uint64_t id, string question, vector<string> options, uint8_t correct_option) {
-        require_auth(admin); // Проверяем, что вызов делает админ
 
         question_index questions(get_self(), get_self().value);
         auto itr = questions.find(id);
@@ -32,9 +29,7 @@ public:
         print("Question added: ", question);
     }
 
-    // Ответ студента на вопрос
     ACTION answerq(name student, uint64_t id, uint8_t answer) {
-        require_auth(student); // Проверяем, что вызов делает студент
 
         question_index questions(get_self(), get_self().value);
         auto itr = questions.find(id);
@@ -43,18 +38,15 @@ public:
         student_index students(get_self(), get_self().value);
         auto student_itr = students.find(student.value);
 
-        // Проверяем правильность ответа
         if (itr->correct_option == answer) {
             print("Correct answer!");
 
             if (student_itr == students.end()) {
-                // Если студент отвечает впервые, создаём запись
                 students.emplace(student, [&](auto& row) {
                     row.username = student;
                     row.score = 1;
                 });
             } else {
-                // Если студент уже есть в таблице, увеличиваем баллы
                 students.modify(student_itr, same_payer, [&](auto& row) {
                     row.score += 1;
                 });
@@ -64,9 +56,7 @@ public:
         }
     }
 
-    // Получение текущего количества баллов студента
     ACTION getscore(name student) {
-        require_auth(student); // Проверяем, что студент запрашивает свой счёт
 
         student_index students(get_self(), get_self().value);
         auto itr = students.find(student.value);
@@ -79,7 +69,6 @@ public:
     }
 
 private:
-    // Таблица вопросов
     TABLE question {
         uint64_t id;
         string question;
@@ -89,7 +78,6 @@ private:
         uint64_t primary_key() const { return id; }
     };
 
-    // Таблица студентов и их баллов
     TABLE student {
         name username;
         uint64_t score;
