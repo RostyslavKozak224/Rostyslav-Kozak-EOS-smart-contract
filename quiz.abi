@@ -1,0 +1,134 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.2",
+    "types": [],
+    "structs": [
+        {
+            "name": "addquestion",
+            "base": "",
+            "fields": [
+                {
+                    "name": "admin",
+                    "type": "name"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "question",
+                    "type": "string"
+                },
+                {
+                    "name": "options",
+                    "type": "string[]"
+                },
+                {
+                    "name": "correct_option",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "answerq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "student",
+                    "type": "name"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "answer",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "getscore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "student",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "question",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "question",
+                    "type": "string"
+                },
+                {
+                    "name": "options",
+                    "type": "string[]"
+                },
+                {
+                    "name": "correct_option",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "student",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "score",
+                    "type": "uint64"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "addquestion",
+            "type": "addquestion",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "answerq",
+            "type": "answerq",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "getscore",
+            "type": "getscore",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "questions",
+            "type": "question",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "students",
+            "type": "student",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "kv_tables": {},
+    "ricardian_clauses": [],
+    "variants": [],
+    "action_results": []
+}
